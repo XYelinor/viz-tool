@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Viz-tool Browser</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<script src="https://cdn.jsdelivr.net/npm/vega@5.3.5"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-lite@3.2.1"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vega-embed@4.0.0"></script>
+    <!--script src="https://d3js.org/d3.v3.min.js"></script-->
+
+    <meta charset="UTF-8">
+
+    <style media="screen">
+      /* Add space between Vega-Embed links  */
+      .vega-actions a {
+        margin-right: 5px;
+      }
+
+      svg{
+      /*background: rgba(255,255,255,0.9);*/
+      position: absolute;
+      right: 0px;
+    	}
+    </style>
+
+
+
+</head>
+
+<body>
+
+	<div class="header">
+		<a href="https://vis.ffgti.org/" style="text-decoration: none;"><h1><font color="black">Viz-tool Browser</font></h1></a>
+		&nbsp&nbsp&nbsp&nbsp&nbsp
+		<font style="font-style: italic; margin-top: 15px;">for an appropriate visualization tool exploring</font>
+		<div></div>
+	</div>
+	<hr style="border:none; background-color: darkgray; height: 2px; width: 1300px; text-align: center; margin: 0 auto;"><br>
+
+
+	<div class="nav">
+		<button id="Programming"><font color="black" size="2" ><strong>Programming</strong></font></button>
+	  	<button id="Interactivity"><font color="black" size="2" ><strong>Interactivity</strong></font></button>
+	  	<button id="Combine"><font color="black" size="2" ><strong>All tools</strong></font></button>
+	</div>
+
+
+
+	<!------------------------------------------clustering bubble-------------------------------------->
+  	
+  	<div id="bubble_chart">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.2.2/d3.min.js"></script>
+		<script src="bubble-chart.js"></script>
+
+		<div class="instruction">
+			<br><h2>Instruction</h2><br><br>
+			<div style="border-top: solid;
+			border-color: darkgray;">
+				<h3>Programming</h3>
+				<font>programming is required or not</font></div><br>
+			<div><h3>Interactivity</h3>
+				<font>viz effect is interactive or not</font></div><br>
+			<div>
+				<h3>Licence type</h3>
+				<font>determines if the tool has to be bought before being able to use it.</font>
+			</div><br>
+			<div>
+				<h3>Popularity</h3>
+				<font>The heigher the user recommendation index, the higher the polularity</font>
+			</div><br><br>
+			<div style="border-top: solid;
+			border-color: darkgray;">
+				<h3 onclick="show_rating()" style="cursor: pointer;">Rating score</h3>
+				<font>Rating can differentiate between good and bad tools with six different criteria.</font>
+			</div><br><br>
+			<div style="border-top: solid;
+			border-color: darkgray;">
+				<h3 onclick="show_map()" style="cursor: pointer;">Data type&Viz-output</h3>
+				<font>Select the most suitable visualization effect of my data through the quantity distribution of the matching results of the input data type and the output visualization type.</font>
+			</div>
+		</div>
+
+  		<div id="legend_color">
+  			<br>
+  			<font size="3"><strong>Licence type</strong></font><br><br>
+  			
+  			<div>
+  				<div class="legend_1"></div>
+  				<div><font>Open source</font></div>
+  			</div><br>
+  			<div>
+  				<div class="legend_2"></div>
+  				<div><font>Paid</font></div>
+  			</div><br>
+  			<div>
+  				<div class="legend_3"></div>
+  				<div><font>Free</font></div>
+  			</div><br>
+  			<div>
+  				<div class="legend_4"></div>
+  				<div>Paid licence</div>
+  			</div>
+  		</div>
+
+  		<div id="Programming_text">
+  			<div class="pro_yes"><p>Programming required</p></div>
+  			<div class="pro_no"><p>Non-programming</p></div>
+  		</div>
+
+  		<div id="Interactivity_text">
+  			<div class="interactive_yes"><p>Interactive</p></div>
+  			<div class="interactive_no"><p>Non-interactive</p></div>
+  		</div>
+
+  		<script type="text/javascript">
+  			document.getElementById('Programming').addEventListener('click',function() {
+					document.querySelector("#Programming_text").style.display = 'flex';
+					document.querySelector('#Interactivity_text').style.display = 'none';
+	                 });
+  			document.getElementById('Combine').addEventListener('click',
+						function(){
+							document.querySelector('#Programming_text').style.display = 'none';
+							document.querySelector('#Interactivity_text').style.display = 'none';
+						})
+  			document.getElementById('Interactivity').addEventListener('click',
+						function(){
+							document.querySelector("#Interactivity_text").style.display = 'flex';
+							document.querySelector('#Programming_text').style.display = 'none';
+						})
+
+  		</script>
+
+  		<div id="rating" onclick="show_rating()"></div>
+  		<script type="text/javascript">
+  			function show_rating() {
+  				document.getElementById('rating').classList.toggle('active');
+  			}
+  		</script>
+
+  		<div id="heatmap" onclick="show_map()"></div>
+  		<script type="text/javascript">
+  			function show_map() {
+  				document.getElementById('heatmap').classList.toggle('active');
+  			}
+  		</script>
+  	
+  	</div>
+
+	<!------------------------------visualization for specific tool selection--------------------------->
+	<script>
+    	var VISpec = {
+	        $schema: 'https://vega.github.io/schema/vega-lite/v3.json',
+	  		
+	  		//data: {url: "data/fakedata_forheatmap.json"},
+
+	  		data: {
+	  			values: [
+
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Map"
+				   },
+				   {
+				   		datatype:"Genomic",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:""
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:""
+				   },
+				   {
+				   		datatype:"Multi-Dimensional",
+				   		vizOutput:""
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:""
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Time-Series"
+				   },
+				   {
+				   		datatype:'Time-Series',
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Bubble-Chart"
+				   },
+				   {
+				   		datatype:"Multi-Dimensional",
+				   		vizOutput:"Bubble-Chart"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Bubble-Chart"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Map"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Tabular",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Network",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Geo-spatial",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Sets",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Time-Series",
+				   		vizOutput:"Circular-Layout"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"Line-Graph"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"Diagram"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"Pie-Chart"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"Simple-Chart"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"node-link"
+				   },
+				   {
+				   		datatype:"Multi-Dimentional",
+				   		vizOutput:"Circular-Layout"
+				   },
+				]	
+	  		},
+	  		
+	  		transform: [
+	    		{
+	      			aggregate: [{op: "count", as: "num_tools"}],
+	      			groupby: ["datatype", "vizOutput"]
+	    		}
+	    	],
+	  		
+	  		//mark:"circle",
+
+	  		encoding: {
+	    		y: {field: "vizOutput", type: "ordinal"},
+	    		x: {field: "datatype", type: "ordinal"}
+	  		},
+
+	  		layer: [
+	    		{
+	      			mark: "rect",
+	      			encoding: {
+	        			color: {
+	          				field: "num_tools",
+	          				type: "quantitative",
+	          				title: "Count of Records",
+	          				legend: {"direction": "horizontal", gradientLength: 120}
+	        			}
+	      			}
+	    		},
+	    		
+	    		{
+	      			mark: "text",
+	      			encoding: {
+	        			text: {field: "num_tools", type: "quantitative"},
+	        			color: {
+	          				condition: {test: "datum['num_cars'] < 1", value: "black"},
+	          				value: "white"
+	   					}
+	      			}
+	    		}
+	  		],
+	  
+	  		config: {
+	    		scale: {bandPaddingInner: 0, bandPaddingOuter: 0},
+	    		text: {baseline: "middle"},
+	    		style: {text: {baseline: "middle"}}
+	  		}
+	  		};
+
+      		// Embed the visualization in the container with id `vis`
+      		vegaEmbed('#heatmap', VISpec);
+    </script>
+	
+	<script>
+	    var ratingViz = {
+	        $schema: "https://vega.github.io/schema/vega-lite/v3.json",
+	        data: {"url": "rating_Chart.json"},
+	        selection: {
+	          paintbrush: {
+	            type: "multi",
+	            on:"mouseover",
+	            empty:"all"}
+	        },
+	        mark: "point",
+	        encoding: {
+	          x: {
+	            field: "name",
+	            type: "nominal",
+	            axis: {title: "Tool Name"}
+	          },
+	          y: {
+	            field: "rating",
+	            type: "quantitative"
+	          },
+	          size:{
+	            condition:{
+	              selection:"paintbrush", 
+	              value:300},
+	            value:50
+	          },
+	          color: {
+	            field: "performance",
+	            type: "nominal",
+	            scale: {
+	              domain: ["Learning","Visual Quality","Execution Speed","Scalability","Customisibility","Usability"],
+	              range: ["#e7ba52","#c7c7c7","#aec7e8","#1f77b4","#9467bd","#e4ff8e"]
+	            },
+	            legend: {title: "rating criteria"}
+	          }
+	        }
+	    };
+
+    	vegaEmbed('#rating', ratingViz);
+  	</script>
+
+</body>
+</html>

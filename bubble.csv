@@ -1,0 +1,28 @@
+name,programming,interactivity,licence,popularity
+Arbor.js,required,interactive,Open_source,4
+CartoDB,not_required,interactive,paid,2
+Circos,not_required,interactive,Open_source,3
+Trifacta,not_required,interactive,paid,3
+Envision.js,required,non_interactive,Open_source,2
+Gephi,not_required,interactive,Open_source,2
+gnuplot,required,non_interactive,Open_source,4
+Google Charts,not_required,interactive,free,1
+Leaflet,required,interactive,Open_source,5
+Peity,not_required,non_interactive,Open_source,2
+Processing,required,interactive,Open_source,5
+R,required,non_interactive,Open_source,1
+Vistorian,not_required,interactive,free,3
+D3.js,required,interactive,free,5
+RAWGraphs,not_required,interactive,free,5
+Seaborn,required,non_interactive,Open_source,2
+Timecurves,not_required,non_interactive,free,1
+Palladio,not_required,interactive,free,5
+Cubism.js,required,interactive,Open_source,4
+Cytoscape,not_required,interactive,Open_source,2
+NodeBox 3,not_required,non_interactive,free,1
+sigma.js,required,interactive,Open_source,1
+Kartograph,required,interactive,Open_source,2
+ZingChart,required,interactive,paid,3
+Vega,required,interactive,Open_source,4
+Tableau,not_required,interactive,paid,1
+Excel,not_required,non_interactive,paid licence,4

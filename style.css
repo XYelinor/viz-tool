@@ -1,0 +1,178 @@
+*
+{
+	margin: 0px;
+	padding: 0px;
+}
+
+body
+{
+	font-family: "Times New Roman", Georgia, Serif;
+	/*background-color: rgba(0,0,0,0.25);*/
+}
+
+.header
+{
+	padding: 15px;
+	display: inline-flex;
+}
+
+
+#bubble_chart
+{
+	position: relative;
+	/*background-color: yellow;*/
+	height: 600px;
+	width: 1347px;
+	margin: 0px;
+	overflow: hidden;
+}
+
+.instruction
+{
+	width: 297px;
+	height: 600px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	padding: 15px;
+	background-color: rgba(255,255,255,0);
+	/*background-color: pink;*/
+}
+
+.nav
+{
+	margin-left: 335px;
+}
+
+#heatmap
+{
+	height: 350px;
+	width: 1000px;
+	padding: 20px;
+	margin: auto 0;
+	position: absolute;
+	bottom: 12px;
+	right: -990px;
+	transition: .4s;
+	background-color: rgba(255,255,255,0.5);
+	box-shadow: rgb(228, 231, 231) 0px 0px 20px 5px inset;
+	border-top-left-radius: 13%;
+	border-bottom-left-radius: 13%;
+	z-index: 6;
+}
+
+#heatmap.active{
+	right: 0px;
+}
+
+#rating
+{
+	height: 300px;
+	width: 700px;
+	padding: 20px;
+	position: absolute;
+	bottom: 0px;
+	right: -697px;
+	transition: .4s;
+	background-color: rgba(255,255,255,0.8);
+	box-shadow: rgb(228, 231, 231) 0px 0px 20px 5px inset;
+	border-top-left-radius: 12%;
+	border-bottom-left-radius: 12%;
+	z-index: 7;
+}
+
+#rating.active{
+	right: 0px;
+}
+
+button
+{
+	width: 130px;
+	height: 40px;
+	background-color: rgba(228,231,231,0.9);
+	cursor: pointer;
+	margin: 0px;
+	border: none;
+	/*border-top-right-radius: 30%;
+	border-top-left-radius: 30%;*/
+}
+
+#legend_color
+{
+	width: 120px;
+	height: 200px;
+	/*background-color: pink;*/
+	margin: 0px;
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+
+
+.legend_1
+{
+	width: 20px;
+	height: 20px;
+	background-color: #CBD7D2;
+	border: none;
+	float: left;
+}
+
+.legend_2
+{
+	width: 20px;
+	height: 20px;
+	background-color: #ffee72;
+	border: none;
+	float: left;
+}
+
+.legend_3
+{
+	width: 20px;
+	height: 20px;
+	background-color: #D8D3CB;
+	border: none;
+	float: left;
+}
+
+.legend_4
+{
+	width: 20px;
+	height: 20px;
+	background-color: #e4ff8e;
+	border: none;
+	float: left;
+}
+
+#Programming_text, #Interactivity_text
+{
+	display: none;
+}
+
+.pro_yes, .interactive_yes
+{
+	width: 270px;
+	height: 70px;
+	/*background-color: pink;*/
+	position: absolute;
+	top: 70px;
+	left: 400px;
+}
+
+.pro_no, .interactive_no
+{
+	width: 270px;
+	height: 70px;
+	/*background-color: pink;*/
+	position: absolute;
+	top: 70px;
+	left: 900px;
+}
+
+p
+{
+	font-size: 27px;
+	font-weight: 12;
+	color: rgba(0,0,0,0.7);
+}
